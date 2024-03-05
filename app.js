@@ -10,9 +10,6 @@ const ordersRouter = require("./routes/api/orders");
 
 const app = express();
 
-const MANGO_URL =
-  "mongodb+srv://konyagaigor10:74Ty3NlPq9sDMZd3@cluster0.dqe3slv.mongodb.net/db-medicine-delivery";
-
 dotenv.config({
   path: ".env",
 });
@@ -20,7 +17,7 @@ dotenv.config({
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 mongoose
-  .connect(MANGO_URL)
+  .connect(process.env.MANGO_URL)
   .then(() => {
     console.log("Database connection successful");
   })
