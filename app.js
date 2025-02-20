@@ -1,25 +1,26 @@
-const express = require("express");
-const logger = require("morgan");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
+const express = require('express');
+const logger = require('morgan');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 
-const shopsRouter = require("./routes/api/shops");
-const medicinesRouter = require("./routes/api/medicines");
-const ordersRouter = require("./routes/api/orders");
+const usersRouter = require('./routes/api/auth');
+const shopsRouter = require('./routes/api/shops');
+const medicinesRouter = require('./routes/api/medicines');
+const ordersRouter = require('./routes/api/orders');
 
 const app = express();
 
 dotenv.config({
-  path: ".env",
+  path: '.env',
 });
 
-const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 mongoose
   .connect(process.env.MANGO_URL)
   .then(() => {
-    console.log("Database connection successful");
+    console.log('Database connection successful');
   })
   .catch((err) => {
     console.log(err.message);
@@ -29,14 +30,15 @@ mongoose
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static('public'));
 
-app.use("/api/shops", shopsRouter);
-app.use("/api/medicines", medicinesRouter);
-app.use("/api/orders", ordersRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/shops', shopsRouter);
+app.use('/api/medicines', medicinesRouter);
+app.use('/api/orders', ordersRouter);
 
 app.use((req, res) => {
-  res.status(404).json({ message: "Not found" });
+  res.status(404).json({ message: 'Not found' });
 });
 
 app.use((err, req, res, next) => {
