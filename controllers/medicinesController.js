@@ -11,14 +11,14 @@ exports.getAllMedicine = async (req, res, next) => {
     next(error);
   }
 };
-exports.medicines = async (req, res, next) => {
+exports.getMedicinesByShop = async (req, res, next) => {
   try {
     const { shopId } = req.body;
 
     if (shopId) {
-      const medicines = await Medicines.find({ owner: shopId });
+      const allMedicine = await Medicines.find({ owner: shopId });
 
-      res.status(200).json({ message: "success", medicines });
+      res.status(200).json({ message: "success", allMedicine });
       return;
     }
     const newMedicine = await Medicines.create(req.body);

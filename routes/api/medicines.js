@@ -1,17 +1,17 @@
-const express = require("express");
+const express = require('express');
 
 const {
-  medicines,
+  getMedicinesByShop,
   deleteMedicine,
   getAllMedicine,
-} = require("../../controllers/medicinesController");
+} = require('../../controllers/medicinesController');
 
 const router = express.Router();
 
-router.get("/", getAllMedicine);
+router.get('/', getAllMedicine);
 
-router.post("/", medicines);
+router.post('/', getMedicinesByShop);
 
-router.delete("/:medicineId", deleteMedicine);
+router.delete('/:medicineId', deleteMedicine);
 
 module.exports = router;
